@@ -56,7 +56,7 @@ session_start();
                             <input type="text" name="address" class="form-control">
                         </div>
                         <div class="mb-4">
-                            <button type="submit" name="save_emoloyee" class="btn btn-primary"> Save Employee</button>
+                            <button type="submit" name="save_employee" class="btn btn-primary"> Save Employee</button>
                         </div>
 
                      </form>

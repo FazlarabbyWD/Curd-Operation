@@ -1,5 +1,6 @@
 <?php
 require'dbcon.php';
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,6 +16,7 @@ require'dbcon.php';
   </head>
   <body>
    <div class="container mt-5">
+    <?php include ('message.php');?>
     <div class="row">
         <div class="col-md-12">
             <div class="curd">
@@ -56,12 +58,14 @@ require'dbcon.php';
                                 <td><?=$employee["salary"];?></td>
                                 <td><?=$employee["address"];?></td>
                                 <td>
-                                    <a href=""class="btn btn-info btn-sm" >view</a>
-                                     <a href="employee-edit.php?id=<?= $employee['id']; ?>" class="btn btn-success btn-sm">Edit</a>
-                                    <a href=""class="btn btn-danger btn-sm" >Delete</a>
-                                </td>
-                                </tr>
-                                <?php
+                                 <a href="view.php?id=<?= $employee['id']; ?>"class="btn btn-info btn-sm" >view</a>
+                                 <a href="employee-edit.php?id=<?= $employee['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                            <form action="code.php" method="POST"class="d-inline">
+                                            <button type="submit" name="delete_employee" value="<?=$employee['id'];?>" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                        </tr>
+                                        <?php
                             
                                 }
                              }
