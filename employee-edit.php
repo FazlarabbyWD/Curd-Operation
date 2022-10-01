@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'dbcon.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -11,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Employee Create</title>
+    <title>Employee Edit</title>
   </head>
   <body>
 
@@ -23,43 +24,63 @@ session_start();
         <div class="col-md-12">
             <div class="curd">
                 <div class="curd-header">
-                    <h2>Employee ADD
+                    <h2>Employee Edit
                         <a href="index.php" class="btn btn-danger float-end">BACK</a>
                     </h2>
                     
                 </div>
                 <div>
                     <div class="curd-body">
-                     <form action="code.php" method="POST">
+                        <?php
+                        if(isset($_GET['id']))
+                        {
+                            $employee_id = mysqli_real_escape_string($con,$_GET['id']);
+                            $query= "SELECT * FROM employee WHERE id='$employee_id' ";
+                            $query_run=mysqli_query($con,$query);
+                            if(mysqli_num_rows($query_run)>0)
+                            {
+                                $employee=mysqli_fetch_array($query_run);
+                                ?>
+                                <form action ="code.php" method="POST">
                         <div class="mb-4">
                             <label>Employee Name</label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control" value="<?=$employee['name'];?>">
                         </div>
                         <div class="mb-4">
                             <label>Employee Email</label>
-                            <input type="email" name="email" class="form-control">
+                            <input type="email" name="email" class="form-control"value="<?=$employee['email'];?>">
                         </div>
                         <div class="mb-4">
                             <label>Employee Phone</label>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phone" class="form-control"value="<?=$employee['phone'];?>">
                         </div>
                         <div class="mb-4">
                             <label>Employee Designation</label>
-                            <input type="text" name="designation" class="form-control">
+                            <input type="text" name="designation" class="form-control"value="<?=$employee['designation'];?>">
                         </div>
                         <div class="mb-4">
                             <label>Employee Salary</label>
-                            <input type="text" name="salary" class="form-control">
+                            <input type="text" name="salary" class="form-control"value="<?=$employee['salary'];?>">
                         </div>
                         <div class="mb-4">
                             <label>Employee Address</label>
-                            <input type="text" name="address" class="form-control">
+                            <input type="text" name="address" class="form-control"value="<?=$employee['address'];?>">
                         </div>
                         <div class="mb-4">
-                            <button type="submit" name="save_emoloyee" class="btn btn-primary"> Save Employee</button>
+                            <button type="submit" name="update_emoloyee" class="btn btn-primary"> Update Employee</button>
                         </div>
 
                      </form>
+
+                                <?php
+                            }
+                            else{
+                                echo" <h4>NO Data Found</h4>";
+                            }
+
+                        }
+                        ?>
+                     
                     </div>
                 </div>
             </div>
